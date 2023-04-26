@@ -1,0 +1,229 @@
+<!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <style>
+            
+            .btn{
+                display: flex;
+                margin-left: 5px;
+                text-align: none;
+            }
+            header{
+                background-color: #000000;
+                color: #ffffff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 20vh;
+                padding: 5px;
+            }
+            .btn{
+                background-color: rgb(203, 202, 202);
+                color: #000000;
+                border: #000000 solid 1px;
+                margin: 5px;
+            }
+            main{
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .card{
+                margin: 5px;
+                background-color: burlywood;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+            }
+            p {
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin: 0;
+            }
+            .card:hover{
+                background-color: rgb(152, 124, 92);
+                box-shadow: 3px 3px 3px rgb(87, 87, 87);
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>LOL英雄聯盟</h1>
+        </header>
+
+        <button class="btn btn-primary" type="submit" id = "btn1">Ajax Call LOL英雄聯盟 </button>
+
+
+        <template>
+
+            <div class="card" style="width: 17rem; height:23rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                <div class="btn_group d-flex">
+                    <button type="button" class="btn btn-primary" id="btn-detail" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                        詳細
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-video" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                        影片
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Modal-detail -->
+            <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <img src="https://picsum.photos/300/200/?random=10">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal-detail -->
+            <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">123</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <img src="https://picsum.photos/300/200/?random=10">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+                <video src=""></video>
+            </div>
+
+
+        </template>
+
+        <main></main>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+        <script src="https://code.jquery.com/jquery-3.6.4.js"
+            integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+
+        <script>
+            let xhr = new XMLHttpRequest();
+            let datas;
+            xhr.onload = function(){
+                if(xhr.status == 200){
+                    let json = xhr.responseText;
+                    datas = JSON.parse(json);
+                    datas = datas.data
+                    console.log(typeof(datas));
+                    console.log("9999999")
+                    console.log(datas);
+                }else{
+                    alert(xhr.status);
+                }
+            }
+            xhr.open('get', 'https://ddragon.leagueoflegends.com/cdn/10.22.1/data/zh_TW/champion.json');
+            xhr.send(null);
+            console.log("oooooo")
+            console.log(datas);
+            window.onload = function(){
+                let btn1 = document.getElementById('btn1');
+                let number = 0;
+                btn1.addEventListener('click', function(){
+                    console.log("1111111")
+                    for(let data in datas){
+                        console.log("00000")
+                        let template = document.querySelector('template');
+                        let clone = template.content.cloneNode(true);
+                        let card_title = clone.querySelector('.card-title');
+                        let card_text = clone.querySelector('.card-text');
+                        let card_img = clone.querySelector('.card-img-top');
+                        let card_btn1 = clone.querySelector('#btn-detail');
+                        let card_btn2 = clone.querySelector('#btn-video');
+                        let btn_detail = clone.querySelector(`.${datas[data].id}-detail`);
+                        let btn_video = clone.querySelector(`.${datas[data].id}-video`);
+                        let modal1 = clone.querySelector('.modal');
+                        let modal2 = clone.querySelector('#exampleModal2');
+                        let modal_title = clone.querySelectorAll('.modal-title');
+                        let modal_body = clone.querySelectorAll('.modal-body');
+                        
+                        console.log(modal_body[0])
+                        console.log(datas[data].stats.hp)
+                        console.log("9999999")
+                        console.log(datas[data].key)
+
+                        card_title.textContent =  `${number} : ${data} - ${datas[data].name}`;
+                        card_text.textContent = datas[data].blurb;
+                        card_img.src = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${datas[data].id}_0.jpg`;
+                        card_btn1.setAttribute("data-bs-target",`#${datas[data].id}-detail-${number}`);
+                        card_btn2.setAttribute("data-bs-target",`#${datas[data].id}-video-${number}`);
+                        modal1.setAttribute("id",`${datas[data].id}-detail-${number}`);
+                        modal2.setAttribute("id",`${datas[data].id}-video-${number}`);
+                        number++;
+                        modal_title[0].textContent = `${data} - ${datas[data].name}`;
+                        modal_title[1].textContent = `${data} - ${datas[data].name}`;
+                        modal_body[0].innerHTML = (
+                            `<div class="d-flex">
+                                <div class="col-6">
+                                    <img class="w-100 h-100 p-2" src="https://ddragon.leagueoflegends.com/cdn/10.22.1/img/champion/${datas[data].id}.png" alt="">
+                                </div>
+                                <div class="col-6 p-2">
+                                    <p>${datas[data].name}</p>
+                                    <p>${datas[data].title}</p>
+                                    <p>hp : ${datas[data].stats.hp}</p>
+                                    <p>movespeed : ${datas[data].stats.movespeed}</p>
+                                    <p>armor : ${datas[data].stats.armor}</p>
+                                    <p>attackrange : ${datas[data].stats.attackrange}</p>
+
+                                </div>
+                            </div>`
+                        );
+                        modal_body[1].innerHTML = (
+                            `<div class="d-flex">
+                                <div class="col-12 d-flex">
+                                    <video width="320" height="240" class= "m-auto" controls>
+                                        <source class="w-100vw h-100vh" src="https://d28xe8vt774jo5.cloudfront.net/champion-abilities/${padToFourDigits(datas[data].key)}/ability_${padToFourDigits(datas[data].key)}_R1.mp4" type="video/mp4">
+                                        <source src="movie.ogg" type="video/ogg">
+                                        您的瀏覽器不支援 Video 標籤。
+                                    </video>
+
+                                </div>
+                            </div>`
+                        
+                        );
+                        
+
+
+                        document.querySelector('main').appendChild(clone);
+                    }
+
+                })
+            }
+            
+            function padToFourDigits(number) {
+                while(number.length < 4) {
+                    number = '0' + number;
+                }
+                return number;
+            }
+        </script>
+
+    </body>
+</html>
